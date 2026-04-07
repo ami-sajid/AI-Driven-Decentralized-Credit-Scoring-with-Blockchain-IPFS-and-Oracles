@@ -1,0 +1,12 @@
+{
+  "userId": "user004",
+  "name": "Nigga",
+  "creditScore": 10,
+  "lastUpdated": "2024-01-15",
+  "factors": {
+    "paymentHistory": "Never",
+    "creditUtilization": "very low",
+    "creditAge": "very old"
+  },
+  "timestamp": "2024-01-15T10:30:00Z"
+}

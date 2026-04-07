@@ -1,0 +1,12 @@
+{
+  "userId": "user002",
+  "name": "Jane Smith",
+  "creditScore": 680,
+  "lastUpdated": "2024-01-15",
+  "factors": {
+    "paymentHistory": "good",
+    "creditUtilization": "medium",
+    "creditAge": "average"
+  },
+  "timestamp": "2024-01-15T10:30:00Z"
+}

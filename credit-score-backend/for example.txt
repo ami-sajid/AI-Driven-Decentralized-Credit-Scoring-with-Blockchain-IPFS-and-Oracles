@@ -1,0 +1,8 @@
+const SEPOLIA_RPC_URL = "https://eth-sepolia.g.alchemy.com/v2/Ptsf3kkMf-HfA7cNU3BYt";
+const web3 = new Web3(SEPOLIA_RPC_URL);
+
+const CONTRACT_ADDRESS = "0x809F30eDC162aA6E7337267f8BA5eFd0Ad16b8B0";
+const PRIVATE_KEY = "d2e957528cc44ac7b4051b3f9463b72f084d67710d4b8ec3f51064382d9de108";
+
+
+node scripts/update-contract.js

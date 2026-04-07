@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Credit Score DApp - Automated</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .deployment-info {
+            background: #e8f4fd;
+            border: 1px solid #b3d9ff;
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #555;
+        }
+        .card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .connect-btn {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            font-size: 18px;
+            padding: 20px;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .loading {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+        }
+        .log {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            height: 200px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .user-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .user-card {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .user-card:hover {
+            background: #d4edfd;
+            transform: translateY(-2px);
+        }
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .connected {
+            background: #d4edda;
+            color: #155724;
+        }
+        .disconnected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        .hidden {
+            display: none;
+        }
+        .instructions {
+            background: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .instructions ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        .instructions li {
+            margin-bottom: 8px;
+        }
+        .ipfs-info {
+            background: #e8f5e8;
+            border: 1px solid #4CAF50;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        .ipfs-data {
+            background: #f0f8ff;
+            border: 1px solid #87ceeb;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        .config-status {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Credit Score Checker</h1>
+        <p class="subtitle">Automated Configuration - No Manual Setup Required</p>
+
+        <!-- Deployment Info -->
+        <div id="deploymentInfo" class="deployment-info">
+            Loading configuration from backend...
+        </div>
+
+        <!-- Configuration Status -->
+        <div id="configStatus" class="config-status hidden">
+            ⚙️ Configuration loaded successfully!
+        </div>
+
+        <!-- Connection Status -->
+        <div id="status" class="status disconnected">
+            ❌ Not connected to MetaMask
+        </div>
+
+        <!-- Connect Wallet Section -->
+        <div id="connectSection" class="card">
+            <h3>🔗 Connect Your Wallet</h3>
+            <div class="instructions">
+                <p><strong>To use this DApp:</strong></p>
+                <ol>
+                    <li>Make sure MetaMask is installed in your browser</li>
+                    <li>Ensure you're connected to the Sepolia test network</li>
+                    <li>Click the button below to connect your wallet</li>
+                </ol>
+            </div>
+            <button id="connectButton" class="connect-btn">🦊 Connect MetaMask</button>
+
+            <div id="metamaskHelp" class="warning" style="margin-top: 15px; padding: 10px; border-radius: 5px; display: none;">
+                <strong>MetaMask not detected?</strong>
+                <p>Make sure MetaMask is installed and refresh the page.
+                <a href="https://metamask.io/download.html" target="_blank" style="color: #856404;">Download MetaMask here</a></p>
+            </div>
+        </div>
+
+        <!-- Main App Section (hidden until connected) -->
+        <div id="appSection" class="hidden">
+            <!-- Test Users -->
+            <div class="card">
+                <h3>📋 Test Users</h3>
+                <p>Click any user to auto-fill the form:</p>
+                <div class="user-list">
+                    <div class="user-card" onclick="fillForm('user001', 'John Doe')">
+                        <strong>user001</strong><br>
+                        John Doe<br>
+                        <small>Score: 750</small>
+                    </div>
+                    <div class="user-card" onclick="fillForm('user002', 'Jane Smith')">
+                        <strong>user002</strong><br>
+                        Jane Smith<br>
+                        <small>Score: 680</small>
+                    </div>
+                    <div class="user-card" onclick="fillForm('user003', 'Bob Johnson')">
+                        <strong>user003</strong><br>
+                        Bob Johnson<br>
+                        <small>Score: 820</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Request Form -->
+            <div class="card">
+                <h3>📝 Request Credit Score</h3>
+                <div class="form-group">
+                    <label for="userId">Customer ID:</label>
+                    <input type="text" id="userId" placeholder="Enter customer ID (e.g., user001)">
+                </div>
+
+                <div class="form-group">
+                    <label for="userName">Customer Name:</label>
+                    <input type="text" id="userName" placeholder="Enter full name (e.g., John Doe)">
+                </div>
+
+                <button id="requestBtn">🚀 Request Credit Score</button>
+
+                <div id="result" class="result"></div>
+
+                <!-- IPFS Information -->
+                <div id="ipfsSection" class="ipfs-info hidden">
+                    <h4>🌐 IPFS Data Verification</h4>
+                    <div><strong>IPFS CID:</strong> <span id="ipfsCID">-</span></div>
+                    <div><strong>Credit Score:</strong> <span id="creditScoreValue">-</span></div>
+                    <div><strong>Full IPFS Data:</strong></div>
+                    <div id="ipfsData" class="ipfs-data">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Event Log -->
+            <div class="card">
+                <h3>📜 Event / Status Log</h3>
+                <div id="log" class="log"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let web3;
+        let contract;
+        let userAccount;
+        let CONTRACT_ADDRESS;
+        let CONTRACT_ABI;
+        let RPC_CONFIG;
+
+        // DOM Elements
+        const connectButton = document.getElementById('connectButton');
+        const requestButton = document.getElementById('requestBtn');
+        const statusDiv = document.getElementById('status');
+        const logDiv = document.getElementById('log');
+        const resultDiv = document.getElementById('result');
+        const connectSection = document.getElementById('connectSection');
+        const appSection = document.getElementById('appSection');
+        const metamaskHelp = document.getElementById('metamaskHelp');
+        const ipfsSection = document.getElementById('ipfsSection');
+        const ipfsCIDElement = document.getElementById('ipfsCID');
+        const creditScoreElement = document.getElementById('creditScoreValue');
+        const ipfsDataElement = document.getElementById('ipfsData');
+        const deploymentInfo = document.getElementById('deploymentInfo');
+        const configStatus = document.getElementById('configStatus');
+
+        const BACKEND_BASE_URL = 'http://localhost:3001';
+
+        // Initialize app with backend configuration
+        async function initializeApp() {
+            try {
+                logEvent('🔄 Loading configuration from backend...');
+
+                const response = await fetch(`${BACKEND_BASE_URL}/config`);
+                if (!response.ok) {
+                    throw new Error(`Backend responded with status: ${response.status}`);
+                }
+
+                const config = await response.json();
+
+                CONTRACT_ADDRESS = config.contractAddress;
+                CONTRACT_ABI = config.contractABI;
+                RPC_CONFIG = config.frontendConfig;
+
+                deploymentInfo.innerHTML = `
+                    <strong>Contract:</strong> ${CONTRACT_ADDRESS.substring(0, 6)}...${CONTRACT_ADDRESS.substring(38)} |
+                    <strong>Network:</strong> ${config.network} |
+                    <strong>Deployed:</strong> ${new Date(config.deployedAt).toLocaleDateString()}
+                `;
+
+                configStatus.classList.remove('hidden');
+
+                logEvent('✅ Configuration loaded from backend');
+                logEvent(`📄 Contract: ${CONTRACT_ADDRESS}`);
+                logEvent(`🌐 Network: ${config.network}`);
+            } catch (error) {
+                logEvent(`❌ Failed to load config from backend: ${error.message}`);
+                await loadFallbackConfig();
+            }
+        }
+
+        async function loadFallbackConfig() {
+            try {
+                logEvent('🔄 Trying to load fallback configuration...');
+
+                const response = await fetch('./config/deployment.json');
+                const config = await response.json();
+
+                CONTRACT_ADDRESS = config.contractAddress;
+                CONTRACT_ABI = config.contractABI;
+                RPC_CONFIG = config.frontendConfig;
+
+                deploymentInfo.innerHTML = `
+                    <strong>Contract:</strong> ${CONTRACT_ADDRESS.substring(0, 6)}...${CONTRACT_ADDRESS.substring(38)} |
+                    <strong>Network:</strong> ${config.network} |
+                    <strong>Deployed:</strong> ${new Date(config.deployedAt).toLocaleDateString()}
+                    <br><small>(Using fallback configuration)</small>
+                `;
+
+                logEvent('✅ Loaded fallback configuration');
+            } catch (error) {
+                logEvent('❌ All configuration methods failed');
+                deploymentInfo.innerHTML = '❌ Configuration failed to load. Please check if backend is running.';
+                deploymentInfo.style.background = '#f8d7da';
+                deploymentInfo.style.color = '#721c24';
+            }
+        }
+
+        // Check if MetaMask is installed
+        function checkMetaMask() {
+            if (typeof window.ethereum !== 'undefined') {
+                logEvent('✅ MetaMask detected in browser');
+                return true;
+            } else {
+                logEvent('❌ MetaMask not detected');
+                metamaskHelp.style.display = 'block';
+                return false;
+            }
+        }
+
+        // Connect to MetaMask
+        async function connectWallet() {
+            console.log('Connect button clicked!');
+
+            if (!checkMetaMask()) {
+                showResult('Please install MetaMask first!', 'error');
+                return;
+            }
+
+            try {
+                logEvent('🔄 Connecting to MetaMask...');
+
+                const accounts = await window.ethereum.request({
+                    method: 'eth_requestAccounts'
+                });
+
+                userAccount = accounts[0];
+                logEvent(`✅ Connected account: ${userAccount}`);
+
+                web3 = new Web3(window.ethereum);
+
+                updateStatus(
+                    `✅ Connected: ${userAccount.substring(0, 6)}...${userAccount.substring(38)}`,
+                    'connected'
+                );
+
+                const chainId = await web3.eth.getChainId();
+                logEvent(`🌐 Network chain ID: ${chainId}`);
+
+                if (chainId !== 11155111) {
+                    logEvent('⚠️ Please switch to Sepolia network');
+                    showResult('Please switch to Sepolia test network in MetaMask', 'error');
+                } else {
+                    logEvent('✅ Connected to Sepolia network');
+                }
+
+                // Initialize contract with dynamic address
+                contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+                logEvent(`📄 Contract loaded: ${CONTRACT_ADDRESS}`);
+
+                connectSection.classList.add('hidden');
+                appSection.classList.remove('hidden');
+            } catch (error) {
+                console.error('Connection error:', error);
+                if (error.code === 4001) {
+                    logEvent('❌ User rejected connection');
+                    showResult('Connection rejected by user', 'error');
+                } else {
+                    logEvent(`❌ Connection error: ${error.message}`);
+                    showResult(`Error: ${error.message}`, 'error');
+                }
+            }
+        }
+
+        // Request credit score
+        async function requestCreditScore() {
+            const userId = document.getElementById('userId').value.trim();
+            const userName = document.getElementById('userName').value.trim();
+
+            if (!userId || !userName) {
+                showResult('Please enter both Customer ID and Name', 'error');
+                return;
+            }
+
+            if (!contract) {
+                showResult('Contract not initialized. Please check configuration.', 'error');
+                return;
+            }
+
+            requestButton.disabled = true;
+            requestButton.textContent = 'Processing...';
+
+            showResult('Sending request to blockchain...', 'loading');
+            logEvent(`📤 Requesting credit score for: ${userId} - ${userName}`);
+
+            // Hide IPFS section for new request
+            ipfsSection.classList.add('hidden');
+
+            try {
+                const result = await contract.methods
+                    .requestCreditScore(userId, userName)
+                    .send({ from: userAccount });
+
+                logEvent(`✅ Request sent! Transaction: ${result.transactionHash}`);
+                showResult('Request submitted! Waiting for backend to fetch IPFS and respond...', 'loading');
+
+                // 🔹 Poll backend for latest score
+                await waitForScore(userId);
+            } catch (error) {
+                logEvent(`❌ Error: ${error.message}`);
+                showResult(`Error: ${error.message}`, 'error');
+            } finally {
+                requestButton.disabled = false;
+                requestButton.textContent = '🚀 Request Credit Score';
+            }
+        }
+
+        // Poll backend /api/last-score/:userId for a while
+        async function waitForScore(userId) {
+            let attempts = 0;
+            const maxAttempts = 20;      // ~20 attempts
+            const delayMs = 3000;        // 3 seconds each → about 1 minute max
+
+            logEvent('⏳ Waiting for backend to process IPFS & blockchain...');
+
+            while (attempts < maxAttempts) {
+                try {
+                    const res = await fetch(
+                        `${BACKEND_BASE_URL}/api/last-score/${encodeURIComponent(userId)}`
+                    );
+
+                    if (res.ok) {
+                        const data = await res.json();
+                        logEvent(
+                            `🎉 Score received from backend cache: ${data.creditScore} (tx: ${data.txHash})`
+                        );
+
+                        await fetchAndDisplayIPFSData(data.ipfsCID, data.creditScore);
+                        return;
+                    }
+                } catch (error) {
+                    logEvent(`⚠️ Polling error: ${error.message}`);
+                }
+
+                attempts++;
+                logEvent(`⌛ No score yet, retrying (${attempts}/${maxAttempts})...`);
+                await new Promise((r) => setTimeout(r, delayMs));
+            }
+
+            showResult(
+                'Request sent but no score yet. The oracle/backend may still be processing. Try again in a bit.',
+                'loading'
+            );
+        }
+
+        // Fetch IPFS data and display it
+        async function fetchAndDisplayIPFSData(ipfsCID, creditScore) {
+            try {
+                logEvent(`🌐 Fetching full data from IPFS: ${ipfsCID}`);
+
+                const gateways = [
+                    `https://ipfs.io/ipfs/${ipfsCID}`,
+                    `https://cloudflare-ipfs.com/ipfs/${ipfsCID}`,
+                    `https://gateway.pinata.cloud/ipfs/${ipfsCID}`
+                ];
+
+                let ipfsData = null;
+
+                for (const gateway of gateways) {
+                    try {
+                        logEvent(`🔗 Trying IPFS gateway: ${gateway}`);
+                        const response = await fetch(gateway);
+                        if (response.ok) {
+                            ipfsData = await response.json();
+                            logEvent('✅ Successfully fetched from IPFS');
+                            break;
+                        }
+                    } catch (error) {
+                        // try next gateway
+                    }
+                }
+
+                if (ipfsData) {
+                    ipfsCIDElement.textContent = ipfsCID;
+                    creditScoreElement.textContent = creditScore;
+                    ipfsDataElement.textContent = JSON.stringify(ipfsData, null, 2);
+                    ipfsSection.classList.remove('hidden');
+
+                    logEvent('📊 Full credit data retrieved from IPFS');
+                    showResult(
+                        `✅ Credit Score: ${creditScore} | Data verified from IPFS`,
+                        'success'
+                    );
+                } else {
+                    throw new Error('Could not fetch IPFS data from any gateway');
+                }
+            } catch (error) {
+                logEvent(`❌ IPFS data fetch failed: ${error.message}`);
+                showResult(
+                    `✅ Credit Score: ${creditScore} | IPFS verification pending`,
+                    'success'
+                );
+            }
+        }
+
+        // Helper functions
+        function fillForm(userId, userName) {
+            document.getElementById('userId').value = userId;
+            document.getElementById('userName').value = userName;
+            logEvent(`📝 Form filled: ${userId} - ${userName}`);
+
+            ipfsSection.classList.add('hidden');
+        }
+
+        function showResult(message, type) {
+            resultDiv.textContent = message;
+            resultDiv.className = 'result ' + type;
+            resultDiv.style.display = 'block';
+        }
+
+        function logEvent(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            logDiv.innerHTML += `<div style="margin: 5px 0;">[${timestamp}] ${message}</div>`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function updateStatus(message, type) {
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+        }
+
+        function setupEventListeners() {
+            connectButton.addEventListener('click', connectWallet);
+            requestButton.addEventListener('click', requestCreditScore);
+
+            if (typeof window.ethereum !== 'undefined') {
+                window.ethereum.on('accountsChanged', (accounts) => {
+                    if (accounts.length === 0) {
+                        logEvent('🔒 Wallet disconnected');
+                        location.reload();
+                    } else {
+                        logEvent(`🔄 Account changed: ${accounts[0]}`);
+                        userAccount = accounts[0];
+                        updateStatus(
+                            `✅ Connected: ${userAccount.substring(0, 6)}...${userAccount.substring(38)}`,
+                            'connected'
+                        );
+                    }
+                });
+
+                window.ethereum.on('chainChanged', (chainId) => {
+                    logEvent(`🔄 Network changed: ${chainId}`);
+                    if (chainId === '0xaa36a7') {
+                        logEvent('✅ Switched to Sepolia');
+                    } else {
+                        logEvent('⚠️ Please switch to Sepolia');
+                        showResult('Please switch to Sepolia test network', 'error');
+                    }
+                });
+            }
+        }
+
+        // Initialize when page loads
+        window.addEventListener('load', async function () {
+            logEvent('🚀 Credit Score DApp loaded successfully');
+            logEvent('🌐 Automated configuration - No manual setup required');
+
+            await initializeApp();
+            setupEventListeners();
+            checkMetaMask();
+
+            if (
+                typeof window.ethereum !== 'undefined' &&
+                window.ethereum.selectedAddress
+            ) {
+                logEvent('🔄 MetaMask already connected, initializing...');
+                connectWallet();
+            }
+        });
+    </script>
+</body>
+</html>

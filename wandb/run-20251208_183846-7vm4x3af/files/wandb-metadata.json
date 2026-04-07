@@ -1,0 +1,36 @@
+{
+  "os": "Windows-11-10.0.26200-SP0",
+  "python": "CPython 3.13.5",
+  "startedAt": "2025-12-08T12:38:46.127591Z",
+  "program": "z:\\MFSCreditScore\\MFScreditScore.ipynb",
+  "codePath": "z:\\MFSCreditScore\\MFScreditScore.ipynb",
+  "codePathLocal": "MFScreditScore.ipynb",
+  "email": "akeno9206@gmail.com",
+  "root": "z:\\MFSCreditScore",
+  "host": "DESKTOP-VIFP93A",
+  "executable": "z:\\MFSCreditScore\\venv\\Scripts\\python.exe",
+  "cpu_count": 8,
+  "cpu_count_logical": 16,
+  "gpu": "NVIDIA GeForce RTX 5070",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "500090007552",
+      "used": "365374386176"
+    }
+  },
+  "memory": {
+    "total": "17105088512"
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA GeForce RTX 5070",
+      "memoryTotal": "12820938752",
+      "cudaCores": 6144,
+      "architecture": "Blackwell",
+      "uuid": "GPU-ce19eed1-3dd3-a9a1-ec69-6c155ea53308"
+    }
+  ],
+  "cudaVersion": "13.0",
+  "writerId": "fc2hef1mtb5wrbe89n97ugyd7fvhtg9u"
+}

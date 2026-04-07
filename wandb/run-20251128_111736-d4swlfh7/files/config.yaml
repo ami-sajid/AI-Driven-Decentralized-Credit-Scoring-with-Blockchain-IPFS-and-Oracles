@@ -1,0 +1,66 @@
+_wandb:
+    value:
+        cli_version: 0.23.0
+        e:
+            e3fipvqlu7lbuyegz3unchebg6bgneld:
+                codePath: z:\MFSCreditScore\MFScreditScore.ipynb
+                codePathLocal: MFScreditScore.ipynb
+                cpu_count: 8
+                cpu_count_logical: 16
+                cudaVersion: "13.0"
+                disk:
+                    /:
+                        total: "500090007552"
+                        used: "380285411328"
+                email: akeno9206@gmail.com
+                executable: z:\MFSCreditScore\venv\Scripts\python.exe
+                gpu: NVIDIA GeForce RTX 5070
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Blackwell
+                      cudaCores: 6144
+                      memoryTotal: "12820938752"
+                      name: NVIDIA GeForce RTX 5070
+                      uuid: GPU-ce19eed1-3dd3-a9a1-ec69-6c155ea53308
+                host: DESKTOP-VIFP93A
+                memory:
+                    total: "17105088512"
+                os: Windows-11-10.0.26200-SP0
+                program: z:\MFSCreditScore\MFScreditScore.ipynb
+                python: CPython 3.13.5
+                root: z:\MFSCreditScore
+                startedAt: "2025-11-28T05:17:36.933100Z"
+                writerId: e3fipvqlu7lbuyegz3unchebg6bgneld
+        m: []
+        python_version: 3.13.5
+        t:
+            "1":
+                - 1
+                - 5
+                - 6
+                - 8
+                - 35
+                - 53
+            "2":
+                - 1
+                - 5
+                - 6
+                - 8
+                - 35
+                - 53
+            "3":
+                - 2
+                - 16
+            "4": 3.13.5
+            "5": 0.23.0
+            "8":
+                - 1
+                - 3
+            "12": 0.23.0
+            "13": windows-amd64
+device:
+    value: cuda
+framework:
+    value: PyTorch + Scikit-learn
+random_seed:
+    value: 42

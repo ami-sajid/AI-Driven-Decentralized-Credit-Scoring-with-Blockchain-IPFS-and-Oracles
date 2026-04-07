@@ -1,0 +1,6 @@
+{"time":"2025-11-28T19:23:31.1525665+06:00","level":"INFO","msg":"stream: starting","core version":"0.23.0"}
+{"time":"2025-11-28T19:23:32.2593706+06:00","level":"INFO","msg":"stream: created new stream","id":"hfwodbpu"}
+{"time":"2025-11-28T19:23:32.2593706+06:00","level":"INFO","msg":"handler: started","stream_id":"hfwodbpu"}
+{"time":"2025-11-28T19:23:32.2609562+06:00","level":"INFO","msg":"writer: started","stream_id":"hfwodbpu"}
+{"time":"2025-11-28T19:23:32.2609562+06:00","level":"INFO","msg":"stream: started","id":"hfwodbpu"}
+{"time":"2025-11-28T19:23:32.2614874+06:00","level":"INFO","msg":"sender: started","stream_id":"hfwodbpu"}

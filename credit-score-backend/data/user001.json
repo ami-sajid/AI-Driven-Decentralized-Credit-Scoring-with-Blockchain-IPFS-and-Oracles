@@ -1,0 +1,12 @@
+{
+  "userId": "user001",
+  "name": "John Doe",
+  "creditScore": 750,
+  "lastUpdated": "2024-01-15",
+  "factors": {
+    "paymentHistory": "excellent",
+    "creditUtilization": "low",
+    "creditAge": "old"
+  },
+  "timestamp": "2024-01-15T10:30:00Z"
+}

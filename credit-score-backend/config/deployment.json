@@ -1,0 +1,126 @@
+{
+  "contractAddress": "0xF9AC03669CAA320636296ABf7FCad5138b13d848",
+  "network": "sepolia",
+  "deployedAt": "2025-12-25T11:42:21.172Z",
+  "contractABI": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "requestId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "name": "requester",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "userId",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "name": "userName",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "CreditScoreRequested",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "requestId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "name": "userId",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "name": "creditScore",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "timestamp",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "ipfsCID",
+          "type": "string"
+        }
+      ],
+      "name": "CreditScoreReceived",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "name": "_requestId",
+          "type": "bytes32"
+        },
+        {
+          "name": "_userId",
+          "type": "string"
+        },
+        {
+          "name": "_creditScore",
+          "type": "uint256"
+        },
+        {
+          "name": "_ipfsCID",
+          "type": "string"
+        }
+      ],
+      "name": "fulfillCreditScore",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "_userId",
+          "type": "string"
+        },
+        {
+          "name": "_userName",
+          "type": "string"
+        }
+      ],
+      "name": "requestCreditScore",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "frontendConfig": {
+    "rpcUrl": "https://eth-sepolia.g.alchemy.com/v2/Ptsf3kkMf-HfA7cNU3BYt",
+    "chainId": 11155111,
+    "networkName": "Sepolia Testnet"
+  }
+}
