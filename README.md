@@ -1,5 +1,7 @@
 # Blockchain Meets AI-Powered Oracles and Decentralized Storage
 
+Watch this video
+
 [![Watch the video](https://img.youtube.com/vi/dWDNfRKjUOQ/maxresdefault.jpg)](https://www.youtube.com/watch?v=dWDNfRKjUOQ)
 
 
