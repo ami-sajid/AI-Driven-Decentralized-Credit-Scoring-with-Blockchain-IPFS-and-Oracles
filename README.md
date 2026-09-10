@@ -1,4 +1,4 @@
-# MAQM — Blockchain Meets AI-Powered Oracles and Decentralized Storage
+# Blockchain Meets AI-Powered Oracles and Decentralized Storage
 
 **A Secure and Scalable Framework for Decentralized Credit Scoring**
 
