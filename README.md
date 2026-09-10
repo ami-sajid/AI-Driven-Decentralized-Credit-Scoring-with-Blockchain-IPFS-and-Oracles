@@ -1,5 +1,8 @@
 # Blockchain Meets AI-Powered Oracles and Decentralized Storage
 
+[![Watch the video]([https://youtube.com](https://www.youtube.com/watch?v=dWDNfRKjUOQ))]([https://youtube.com](https://www.youtube.com/watch?v=dWDNfRKjUOQ))
+
+
 **A Secure and Scalable Framework for Decentralized Credit Scoring**
 
 Senior Design Project (CSE499B) · Department of Computer Science and Engineering, North South University
